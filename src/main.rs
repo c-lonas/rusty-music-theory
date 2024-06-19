@@ -25,9 +25,9 @@ fn validate_user_input(note: &str) {
     let valid_notes = ["C", "G", "D", "A", "E", "B", "Cb", "Gb", "F#", "Db", "C#", "Ab", "Eb", "Bb", "F"];
 
     if !valid_notes.contains(&note) {
-        println!("Error: '{}' is not a valid key", note);
-        println!("Please supply one of the following valid arguments");
-        println!("{:?}", valid_notes);
+        eprintln!("Error: '{}' is not a valid key", note);
+        eprintln!("Please supply one of the following valid arguments");
+        eprintln!("{:?}", valid_notes);
 
         process::exit(1);
     } 
