@@ -10,6 +10,7 @@ struct Note {
     index: usize,
 }
 
+#[derive(Debug, Clone)]
 enum Scale {
     Major,
     Minor
@@ -32,9 +33,9 @@ fn main() {
 
     // Construct major scale 
     let scale_choice = Scale::Major;
-    let major_scale = construct_scale(root_note, scale_choice, is_flats_key); 
+    let major_scale = construct_scale(root_note, scale_choice.clone(), is_flats_key); 
     
-    println!("{:?} Major Scale:", root_note);
+    println!("{:?} {:?} Scale:", root_note, scale_choice);
     for degree in major_scale {
         println!("{}", degree)
     }
@@ -75,7 +76,10 @@ fn construct_scale(root_note: &str, scale: Scale , is_flats_key: bool) -> Vec<St
         ("G", 7), ("Ab", 8), ("A", 9), ("Bb", 10), ("B", 11),
     ];
 
-    let steps = [2, 2, 1, 2, 2, 2, 1];
+    let steps = match scale {
+        Scale::Major => [2, 2, 1, 2, 2, 2, 1],
+        Scale::Minor => [2, 1, 2, 2, 1, 2, 2],
+    };
     
     let mut major_scale = Vec::new();
 
