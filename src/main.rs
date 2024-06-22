@@ -10,6 +10,11 @@ struct Note {
     index: usize,
 }
 
+enum Scale {
+    Major,
+    Minor
+}
+
 fn main() {
 
     let args: Vec<String> = env::args().collect();
@@ -26,7 +31,8 @@ fn main() {
     let is_flats_key = determine_if_flats(root_note);
 
     // Construct major scale 
-    let major_scale = construct_major_scale(root_note, is_flats_key); 
+    let scale_choice = Scale::Major;
+    let major_scale = construct_scale(root_note, scale_choice, is_flats_key); 
     
     println!("{:?} Major Scale:", root_note);
     for degree in major_scale {
@@ -58,7 +64,7 @@ fn determine_if_flats(root_note: &str) -> bool {
     }
 }
 
-fn construct_major_scale(root_note: &str, is_flats_key: bool) -> Vec<String> {
+fn construct_scale(root_note: &str, scale: Scale , is_flats_key: bool) -> Vec<String> {
     let notes_sharps = vec![
         ("C", 0), ("C#", 1), ("D", 2), ("D#", 3), ("E", 4), ("F", 5), ("F#", 6),
         ("G", 7), ("G#", 8), ("A", 9), ("A#", 10), ("B", 11),
@@ -70,6 +76,7 @@ fn construct_major_scale(root_note: &str, is_flats_key: bool) -> Vec<String> {
     ];
 
     let steps = [2, 2, 1, 2, 2, 2, 1];
+    
     let mut major_scale = Vec::new();
 
     let available_notes = if is_flats_key {
