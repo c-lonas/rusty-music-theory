@@ -32,11 +32,11 @@ fn main() {
     let is_flats_key = determine_if_flats(root_note);
 
     // Construct major scale 
-    let scale_choice = Scale::Major;
-    let major_scale = construct_scale(root_note, scale_choice.clone(), is_flats_key); 
+    let scale_choice = Scale::Minor;
+    let scale = construct_scale(root_note, scale_choice.clone(), is_flats_key); 
     
     println!("{:?} {:?} Scale:", root_note, scale_choice);
-    for degree in major_scale {
+    for degree in scale {
         println!("{}", degree)
     }
  
@@ -81,7 +81,7 @@ fn construct_scale(root_note: &str, scale: Scale , is_flats_key: bool) -> Vec<St
         Scale::Minor => [2, 1, 2, 2, 1, 2, 2],
     };
     
-    let mut major_scale = Vec::new();
+    let mut scale = Vec::new();
 
     let available_notes = if is_flats_key {
         &notes_flats
@@ -92,11 +92,11 @@ fn construct_scale(root_note: &str, scale: Scale , is_flats_key: bool) -> Vec<St
     let mut current_index = available_notes.iter().position(|&(note, _)| note == root_note).unwrap();
 
     for step in steps.iter() {
-        major_scale.push(available_notes[current_index].0.to_string());
+        scale.push(available_notes[current_index].0.to_string());
         current_index = (current_index + step) % available_notes.len();
     }
 
-    major_scale.push(available_notes[current_index].0.to_string());
+    scale.push(available_notes[current_index].0.to_string());
 
-    major_scale
+    scale
 }
